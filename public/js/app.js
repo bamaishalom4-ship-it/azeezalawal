@@ -2009,8 +2009,8 @@
               </div>
             </div>
             <div class="c-peek-body">
-              <div class="c-doc-banner" style="${a.fullDoc ? 'aspect-ratio:16/9;background:#0a1936;padding:12px 24px' : ''}">
-                <img src="${a.image}" alt="${a.title}" style="${a.fullDoc ? 'object-fit:contain;border-radius:8px' : ''}" />
+              <div class="c-doc-banner" style="${a.fullDoc ? 'aspect-ratio:16/9;background:#0a1936;padding:12px 24px' : (a.bannerAspect ? `aspect-ratio:${a.bannerAspect}` : '')}">
+                <img src="${a.image}" alt="${a.title}" style="${a.fullDoc ? 'object-fit:contain;border-radius:8px' : `object-position:${a.pos || 'center'}`}" />
               </div>
               <div class="c-doc-inner c-prose" style="padding-top:28px">
                 <p class="c-eyebrow">${a.date} · By ${DATA.profile.fullName}</p>

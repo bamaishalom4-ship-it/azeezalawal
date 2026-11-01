@@ -707,7 +707,8 @@ window.PORTFOLIO_DATA = {
       date: "August 2026",
       title: "Helping Africa Feed Itself: SDG Advocacy & Rural Agronomy Literacy",
       subtitle: "Lessons from partnering with the Bill & Melinda Gates Foundation and Bayer Foundations across SDGs 2, 5, 7, 8, 13, and 17.",
-      image: "/images/opt/proj-sdg-donors.svg",
+      image: "/images/opt/azeeza-sdg-donors.jpg",
+      pos: "center 32%",
       sections: [
         {
           h: "Aligning Global Mandates with Local Realities",
