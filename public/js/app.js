@@ -1267,7 +1267,7 @@
 
     const caseCardsHtml = DATA.flagships.slice(0, 4).map(f => `
       <a class="c-card c-case-card" href="#case" data-project-id="${f.id}">
-        <span class="thumb"><img src="${f.image}" alt="${f.name}" loading="lazy" /></span>
+        <span class="thumb"><img src="${f.image}" alt="${f.name}" loading="lazy" style="object-position:${f.pos || 'center'}" /></span>
         <div style="padding:22px">
           <span class="c-eyebrow">${f.year} · ${f.role}</span>
           <h3 class="c-h3" style="margin-top:8px">${f.name}</h3>
@@ -1574,7 +1574,7 @@
         <div class="c-hl-track">
           ${creativeItems.map(f => `
             <div class="c-hl-card" tabindex="0" data-project-id="${f.id}">
-              <div class="c-hl-media"><img src="${f.image}" alt="${f.name}" loading="lazy" /></div>
+              <div class="c-hl-media"><img src="${f.image}" alt="${f.name}" loading="lazy" style="object-position:${f.pos || 'center'}" /></div>
               <div class="c-hl-body">
                 <span class="c-eyebrow" style="color:hsla(0,0%,100%,.75)">${f.year} · ${f.role}</span>
                 <h3 class="c-hl-name">${f.name}</h3>

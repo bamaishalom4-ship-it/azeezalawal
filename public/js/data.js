@@ -459,7 +459,8 @@ window.PORTFOLIO_DATA = {
       room: "developer",
       category: "Service Excellence",
       tags: ["96% QA", "4.8/5 CSAT", "Feedback Loops", "Cross-Functional"],
-      image: "/images/opt/proj-buypower.svg",
+      image: "/images/opt/azeeza-customer-service.jpg",
+      pos: "center 56%",
       problem: "Maintaining high satisfaction across email, chat, and phone while capturing customer insights for engineering and ops.",
       built: "Structured customer feedback loops and cross-functional escalation channels.",
       result: "96% Quality Assurance score and 4.8/5 customer satisfaction rating across thousands of interactions."
