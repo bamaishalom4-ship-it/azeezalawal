@@ -1,0 +1,10 @@
+{
+  "name": "azeeza-muhammad-lawal-portfolio",
+  "version": "1.0.0",
+  "description": "Interactive multi-room portfolio for Azeeza Muhammad Lawal inspired by nanaamoako.com",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  }
+}
