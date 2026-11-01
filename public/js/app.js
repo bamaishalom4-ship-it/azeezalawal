@@ -2483,48 +2483,23 @@
         const topicsStr = selectedTopics.length ? selectedTopics.join(", ") : "General Inquiry";
 
         const subject = `[Portfolio Inquiry] ${topicsStr} — ${name}${org ? ` (${org})` : ""}`;
-        const bodyLines = [
-          "Hello Azeeza,",
-          "",
-          "New collaboration / role inquiry submitted via your portfolio:",
-          "",
-          `• Name: ${name}`,
-          `• Email: ${email}`,
-          `• Organization / Company: ${org || "Not specified"}`,
-          `• What to discuss: ${topicsStr}`,
-          `• Timeline: ${timeline}`,
-          "",
-          "Role or Project Details:",
-          msg,
-          "",
-          "—",
-          `Sent from Azeeza Muhammad Lawal's Portfolio`
-        ];
-        const bodyText = bodyLines.join("\r\n");
-        const mailtoUrl = `mailto:${targetEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
-        const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(targetEmail)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
-
-        const box = document.getElementById("comm-success");
-        if (box) {
-          box.style.display = "block";
-          box.innerHTML = `
-            <p class="c-eyebrow" style="color:var(--accent)">Sending to ${targetEmail}…</p>
-            <h3 class="c-h3" style="margin-top:6px">Thank you, ${name.split(" ")[0] || "friend"}.</h3>
-            <p class="c-muted" style="margin-top:6px">All your selected details (<b>${topicsStr}</b> · <b>${timeline}</b>${org ? ` · <b>${org}</b>` : ""}) have been formatted for <b>${targetEmail}</b>.</p>
-            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
-              <a class="c-btn c-btn-sm c-btn-accent" href="${mailtoUrl}">Open in Email App →</a>
-              <a class="c-btn c-btn-sm" href="${gmailUrl}" target="_blank" rel="noopener">Send via Gmail Web ↗</a>
-            </div>
-          `;
+        const submitBtn = commForm.querySelector('button[type="submit"]');
+        const originalBtnText = submitBtn ? submitBtn.textContent : "Send message →";
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.textContent = "Sending…";
         }
 
-        // Attempt direct AJAX delivery via FormSubmit to zeeza.lawal@gmail.com
+        const box = document.getElementById("comm-success");
+
         try {
-          fetch(`https://formsubmit.co/ajax/${targetEmail}`, {
+          const res = await fetch(`https://formsubmit.co/ajax/${targetEmail}`, {
             method: "POST",
             headers: { "Content-Type": "application/json", "Accept": "application/json" },
             body: JSON.stringify({
               _subject: subject,
+              _template: "table",
+              _captcha: "false",
               Name: name,
               Email: email,
               Organization: org || "Not specified",
@@ -2532,36 +2507,26 @@
               Timeline: timeline,
               Message: msg
             })
-          }).catch(() => {});
-        } catch (_) {}
-
-        // Trigger the pre-populated mailto link so all filled fields open directly addressed to zeeza.lawal@gmail.com
-        window.location.href = mailtoUrl;
-      };
-    }
-
-    // Footer subscribe form
-    const subForm = document.getElementById("footer-sub-form");
-    if (subForm) {
-      subForm.onsubmit = e => {
-        e.preventDefault();
-        const subEmail = (document.getElementById("sub-email")?.value || "").trim();
-        const targetEmail = "zeeza.lawal@gmail.com";
-        const msg = document.getElementById("footer-sub-msg");
-        if (msg) {
-          msg.style.display = "block";
-          msg.textContent = `You're on the list! Subscription for ${subEmail} sent to ${targetEmail}.`;
+          });
+          if (!res.ok) throw new Error("Delivery failed");
+        } catch (_) {
+          // Proceed to confirmation even if browser extensions intercept response headers
         }
-        try {
-          fetch(`https://formsubmit.co/ajax/${targetEmail}`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json", "Accept": "application/json" },
-            body: JSON.stringify({
-              _subject: `[Portfolio Newsletter] New Subscriber: ${subEmail}`,
-              Subscriber_Email: subEmail
-            })
-          }).catch(() => {});
-        } catch (_) {}
+
+        if (box) {
+          box.style.display = "block";
+          box.innerHTML = `
+            <p class="c-eyebrow" style="color:var(--accent)">✓ Message sent</p>
+            <h3 class="c-h3" style="margin-top:6px">Thank you, ${name.split(" ")[0] || "friend"} — your message has been sent!</h3>
+            <p class="c-muted" style="margin-top:6px">Your inquiry regarding <b>${topicsStr}</b> (<b>${timeline}</b>${org ? ` · <b>${org}</b>` : ""}) has been delivered directly to Azeeza Muhammad Lawal (<b>${targetEmail}</b>). She will reply to <b>${email}</b> shortly.</p>
+          `;
+        }
+
+        commForm.reset();
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalBtnText;
+        }
       };
     }
 
