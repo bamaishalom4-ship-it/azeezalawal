@@ -309,15 +309,6 @@
           <div>
             <p class="c-eyebrow">${DATA.profile.title}</p>
             <p class="c-h3" style="margin-top:10px">${DATA.profile.motto}</p>
-            <p class="c-muted" style="margin:18px 0 14px">Subscribe to get my monthly People Operations &amp; SDG impact notes: what I'm building, analyzing, and learning.</p>
-            <form id="footer-sub-form" style="display:grid;gap:8px;max-width:420px">
-              <div style="display:flex;gap:8px">
-                <label for="sub-email" class="sr-only">Email</label>
-                <input id="sub-email" class="c-input" type="email" required placeholder="you@company.com" />
-                <button class="c-btn c-btn-primary" type="submit">Subscribe</button>
-              </div>
-              <p id="footer-sub-msg" class="c-muted" style="font-size:14px;display:none"></p>
-            </form>
           </div>
           <div>
             <h4>Rooms</h4>
